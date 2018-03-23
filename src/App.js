@@ -6,12 +6,30 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      value: 525600
+      value: 0
     };
   }
 
+  componentWillMount() {
+    this.baseState = this.state;
+  }
+
+  newNum = () => {
+    this.setState({ value: this.state.value + 1 });
+  };
+
+  oldNum = () => {
+    this.setState(this.baseState);
+  };
+
   render() {
-    return <div>{converter.toWords(this.state.value)} minutes</div>;
+    return (
+      <div>
+        <button onClick={this.newNum}>Add a minute!</button>
+        {converter.toWords(this.state.value)} minutes
+        <button onClick={this.oldNum}>Reset to zero!</button>
+      </div>
+    );
   }
 }
 
